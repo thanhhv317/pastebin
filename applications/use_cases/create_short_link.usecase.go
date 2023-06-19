@@ -1,5 +1,15 @@
 package use_cases
 
-func CreateShortLink(payload string, shortLinkRepository string) {
+import (
+	"Pastebin/infrastructures/orm/mysql/model"
+	"Pastebin/infrastructures/repositories"
+	"Pastebin/infrastructures/utils"
+)
 
+func CreateShortLink(appCtx utils.AppContext, payload model.ShortLink) model.ShortLink {
+	db := appCtx.GetMaiDBConnection()
+
+	repositories.CreateShortLink(payload, db)
+
+	return payload
 }

@@ -1,16 +1,16 @@
 package controllers
 
 import (
+	"Pastebin/applications/use_cases"
 	"Pastebin/infrastructures/orm/mysql/model"
 	"Pastebin/infrastructures/utils"
 	"Pastebin/interfaces/dtos"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"time"
 )
 
-func CreateShortLink() func(ctx *gin.Context) {
+func CreateShortLink(appCtx utils.AppContext) func(ctx *gin.Context) {
 	return func(c *gin.Context) {
 		var data dtos.CreateShortLinkDto
 		if err := c.ShouldBind(&data); err != nil {
@@ -28,10 +28,11 @@ func CreateShortLink() func(ctx *gin.Context) {
 		}
 
 		// call usecase to create shortlink
+		use_cases.CreateShortLink(appCtx, shortLink)
 
-		fmt.Println(shortLink)
 		c.JSON(http.StatusOK, gin.H{
 			"message": "OK",
+			"data":    shortLink,
 		})
 	}
 }

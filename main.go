@@ -1,13 +1,14 @@
 package main
 
 import (
-	"Pastebin/infrastructures/orm/mysql"
+	"Pastebin/infrastructures/orm"
+	"Pastebin/infrastructures/utils"
 	"Pastebin/infrastructures/webservers"
-	"fmt"
 )
 
 func main() {
-	db := mysql.InitMysql()
-	webservers.InitWebServer()
-	fmt.Println(db)
+	db := orm.InitDatabase()
+	appCtx := utils.NewAppContext(db)
+	
+	webservers.InitWebServer(appCtx)
 }
