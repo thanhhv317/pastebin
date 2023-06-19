@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"Pastebin/applications/use_cases"
+	"Pastebin/common"
 	"Pastebin/infrastructures/orm/mysql/model"
 	"Pastebin/infrastructures/utils"
 	"Pastebin/interfaces/dtos"
@@ -36,10 +37,19 @@ func CreateShortLink(appCtx utils.AppContext) func(ctx *gin.Context) {
 	}
 }
 
-func GetShortLink() func(ctx *gin.Context) {
+func GetShortLink(appCtx utils.AppContext) func(ctx *gin.Context) {
 	return func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"message": "OK",
-		})
+		var data dtos.GetShortLinkDto
+		if err := c.ShouldBindUri(&data); err != nil {
+			c.JSON(http.StatusBadRequest, common.ErrInvalidRequest(err))
+			return
+		}
+
+		result, err := use_cases.GetShortLink(appCtx, map[string]interface{}{"shortlink": data.ShortLink})
+		if err != nil {
+			c.JSON(http.StatusBadRequest, common.ErrInternal(err))
+			return
+		}
+		c.JSON(http.StatusOK, result)
 	}
 }
