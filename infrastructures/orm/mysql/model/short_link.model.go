@@ -5,7 +5,6 @@ import "time"
 const EntityName = "ShortLink"
 
 type ShortLink struct {
-	ID        int       `json:"id" gorm:"column:id"`
 	Shortlink string    `json:"shortlink" gorm:"column:shortlink";`
 	Link      string    `json:"link" gorm:"column:link";`
 	CreatedAt time.Time `json:"created_at" gorm:"column:created_at;"`

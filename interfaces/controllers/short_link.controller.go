@@ -31,8 +31,7 @@ func CreateShortLink(appCtx utils.AppContext) func(ctx *gin.Context) {
 		use_cases.CreateShortLink(appCtx, shortLink)
 
 		c.JSON(http.StatusOK, gin.H{
-			"message": "OK",
-			"data":    shortLink,
+			"data": shortLink,
 		})
 	}
 }
