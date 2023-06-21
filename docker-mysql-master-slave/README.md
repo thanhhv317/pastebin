@@ -17,13 +17,13 @@ and after starting setup replication. See commands inside ./build.sh.
 #### Make changes to master
 
 ```bash
-docker exec mysql_master sh -c "export MYSQL_PWD=111; mysql -u root shorten_link -e 'CREATE TABLE shortlinks( shortlink varchar(7) not null, link varchar(255) not null, created_at timestamp default current_timestamp                             null, updated_at timestamp default current_timestamp on update current_timestamp null, expired_at timestamp default current_timestamp null, index(shortlink) );'"
+docker exec mysql_master sh -c "export MYSQL_PWD=Aa1234567890; mysql -u root shorten_link -e 'CREATE TABLE shortlinks( shortlink varchar(7) not null, link varchar(255) not null, created_at timestamp default current_timestamp                             null, updated_at timestamp default current_timestamp on update current_timestamp null, expired_at timestamp default current_timestamp null, index(shortlink) );'"
 ```
 
 #### Read changes from slave
 
 ```bash
-docker exec mysql_slave sh -c "export MYSQL_PWD=111; mysql -u root shorten_link -e 'select * from shortlinks \G'"
+docker exec mysql_slave sh -c "export MYSQL_PWD=Aa1234567890; mysql -u root shorten_link -e 'select * from shortlinks \G'"
 ```
 
 ## Troubleshooting

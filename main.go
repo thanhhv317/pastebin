@@ -7,8 +7,8 @@ import (
 )
 
 func main() {
-	db := orm.InitDatabase()
-	appCtx := utils.NewAppContext(db)
-	
+	dbRead, dbWrite := orm.InitDatabase()
+	appCtx := utils.NewAppContext(dbRead, dbWrite)
+
 	webservers.InitWebServer(appCtx)
 }

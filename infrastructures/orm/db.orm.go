@@ -5,10 +5,8 @@ import (
 	"gorm.io/gorm"
 )
 
-type Any int
+func InitDatabase() (*gorm.DB, *gorm.DB) {
+	dbRead, dbWrite := mysql.InitMysql()
 
-func InitDatabase() *gorm.DB {
-	db := mysql.InitMysql()
-
-	return db
+	return dbRead, dbWrite
 }

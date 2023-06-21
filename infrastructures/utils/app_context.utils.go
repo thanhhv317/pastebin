@@ -3,19 +3,26 @@ package utils
 import "gorm.io/gorm"
 
 type AppContext interface {
-	GetMaiDBConnection() *gorm.DB
+	GetReadDBConnection() *gorm.DB
+	GetWriteDBConnection() *gorm.DB
 }
 
 type appCtx struct {
-	db *gorm.DB
+	dbRead  *gorm.DB
+	dbWrite *gorm.DB
 }
 
-func NewAppContext(db *gorm.DB) *appCtx {
+func NewAppContext(dbRead *gorm.DB, dbWrite *gorm.DB) *appCtx {
 	return &appCtx{
-		db: db,
+		dbRead:  dbRead,
+		dbWrite: dbWrite,
 	}
 }
 
-func (ctx *appCtx) GetMaiDBConnection() *gorm.DB {
-	return ctx.db
+func (ctx *appCtx) GetReadDBConnection() *gorm.DB {
+	return ctx.dbRead
+}
+
+func (ctx *appCtx) GetWriteDBConnection() *gorm.DB {
+	return ctx.dbWrite
 }

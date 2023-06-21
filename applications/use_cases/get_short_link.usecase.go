@@ -7,6 +7,6 @@ import (
 )
 
 func GetShortLink(appCtx utils.AppContext, cond map[string]interface{}) (*model.ShortLink, error) {
-	db := appCtx.GetMaiDBConnection()
+	db := appCtx.GetReadDBConnection()
 	return repositories.GetShortLink(cond, db)
 }

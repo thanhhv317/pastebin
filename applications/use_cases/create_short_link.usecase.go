@@ -7,7 +7,7 @@ import (
 )
 
 func CreateShortLink(appCtx utils.AppContext, payload model.ShortLink) model.ShortLink {
-	db := appCtx.GetMaiDBConnection()
+	db := appCtx.GetWriteDBConnection()
 
 	repositories.CreateShortLink(payload, db)
 
