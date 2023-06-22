@@ -10,8 +10,9 @@ import (
 
 func InitWebServer(appCtx utils.AppContext) {
 	r := gin.Default()
+	r.ForwardedByClientIP = true
 	r.Use(middlewares.Recover(appCtx))
-
+	r.Use(middlewares.RateLimit(appCtx))
 	// import more routes here
 	routes.ShortLinkRoute(appCtx, r)
 
