@@ -10,8 +10,7 @@ import (
 
 func InitMysql() (*gorm.DB, *gorm.DB) {
 
-	//dsn := fmt.Sprintf(user + ":" + password + "@tcp(" + dbHost + ":" + dbPort + ")/" + dbName + "?charset=utf8mb4&parseTime=True&loc=Local")
-
+	// setup mysql master-slave
 	masterDsn := os.Getenv("DB_MASTER_URL")
 	slaveDsn := os.Getenv("DB_SLAVE_URL")
 
