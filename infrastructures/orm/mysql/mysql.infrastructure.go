@@ -9,7 +9,6 @@ import (
 )
 
 func InitMysql() (*gorm.DB, *gorm.DB) {
-
 	// setup mysql master-slave
 	masterDsn := os.Getenv("DB_MASTER_URL")
 	slaveDsn := os.Getenv("DB_SLAVE_URL")
