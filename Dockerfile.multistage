@@ -9,7 +9,7 @@ COPY go.mod go.sum ./
 RUN go mod download
 
 COPY . ./
-RUN go build -o /Pastebin
+RUN CGO_ENABLED=0 GOOS=linux go build -o /Pastebin
 
 # Run the tests in the container
 FROM build-stage AS run-test-stage
@@ -23,5 +23,5 @@ COPY --from=build-stage /Pastebin /Pastebin
 EXPOSE 3000
 USER nonroot:nonroot
 
-ENTRYPOINT ["go", "run", "Pastebin"]
+ENTRYPOINT ["/Pastebin"]
 
