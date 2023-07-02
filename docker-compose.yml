@@ -1,0 +1,43 @@
+version: '3'
+services:
+  mysql_master:
+    image: mysql
+    env_file:
+      - ./docker-mysql-master-slave/master/mysql_master.env
+    container_name: "mysql_master"
+    restart: "no"
+    ports:
+      - 4406:3306
+    volumes:
+      - ./docker-mysql-master-slave/master/conf/mysql.conf.cnf:/etc/mysql/conf.d/mysql.conf.cnf
+      - ./docker-mysql-master-slave/master/data:/var/lib/mysql
+    networks:
+      - overlay
+
+  mysql_slave:
+    image: mysql
+    env_file:
+      - ./docker-mysql-master-slave/slave/mysql_slave.env
+    container_name: "mysql_slave"
+    restart: "no"
+    ports:
+      - 5506:3306
+    depends_on:
+      - mysql_master
+    volumes:
+      - ./docker-mysql-master-slave/slave/conf/mysql.conf.cnf:/etc/mysql/conf.d/mysql.conf.cnf
+      - ./docker-mysql-master-slave/slave/data:/var/lib/mysql
+    networks:
+      - overlay
+
+  paste_bin:
+    build:
+      dockerfile: Dockerfile.multistage
+      context: .
+    env_file:
+      - .env.dev
+    networks:
+      - overlay
+networks:
+  overlay:
+
