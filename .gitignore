@@ -1,2 +1,2 @@
-./docker-mysql-master-slave/slave/data
-./docker-mysql-master-slave/master/data
+docker-mysql-master-slave/slave/data
+docker-mysql-master-slave/master/data

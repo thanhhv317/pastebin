@@ -1,5 +1,8 @@
 # Shortener
 
+### Run project:
+`docker compose up -d`
+
 ### Use cases
 
 #### We'll scope the problem to handle only the following use cases
